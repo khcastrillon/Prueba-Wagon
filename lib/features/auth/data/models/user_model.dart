@@ -14,4 +14,16 @@ class UserModel extends User {
       name: json['name'] ?? '',
     );
   }
+
+  UserModel copyWith({
+    String? id,
+    String? email,
+    String? name,
+  }) {
+    return UserModel(
+      id: id ?? super.id,
+      email: email ?? super.email,
+      name: name ?? super.name,
+    );
+  }
 }
