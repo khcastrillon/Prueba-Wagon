@@ -13,6 +13,7 @@ class AuthField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textController,
       decoration: InputDecoration(
         hintText: hintText,
       ),
