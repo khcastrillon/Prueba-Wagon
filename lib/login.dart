@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_wagon/home.dart';
-import 'dbHelper.dart';
+import 'package:prueba_wagon/dbHelper.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key, required this.title});
@@ -70,13 +70,11 @@ class _LoginState extends State<Login> {
                       if (_formKey.currentState!.validate()) {
                         var user = await dbHelper.getUser(
                             nameController.text, passwordController.text);
-                        if (user != null) {
+                        if (user != null && user.tipoUsuario == 'admin') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomePage(
-                                      email: nameController.text,
-                                    )),
+                                builder: (context) => const HomePage()),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

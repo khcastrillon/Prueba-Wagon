@@ -18,9 +18,31 @@ class DBHelper {
 
   Future<Usuario?> getUser(String nombre, String password) async {
     var dbClient = await db;
+    if (password == '') {
+      var result = await dbClient
+          .query("Usuario", where: 'nombre = ?', whereArgs: [nombre]);
+      return result.isNotEmpty ? Usuario.fromMap(result.first) : null;
+    }
     var result = await dbClient!.query("Usuario",
         where: 'nombre = ? AND password = ?', whereArgs: [nombre, password]);
     return result.isNotEmpty ? Usuario.fromMap(result.first) : null;
+  }
+
+  Future<Vehiculo?> getVehicle(String conductorId) async {
+    var dbClient = await db;
+    var result = await dbClient
+        .query("Vehiculo", where: 'conductorId = ?', whereArgs: [conductorId]);
+    return result.isNotEmpty ? Vehiculo.fromMap(result.first) : null;
+  }
+
+  Future<List<Servicio>> getServices() async {
+    var dbClient = await db;
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM Ruta');
+    List<Servicio> servicios = [];
+    for (int i = 0; i < list.length; i++) {
+      servicios.add(Servicio.fromMap(list[i].cast<String, Object?>()));
+    }
+    return servicios;
   }
 
   initDatabase() async {
@@ -56,7 +78,7 @@ class DBHelper {
     // Insert dummy data into Ruta table
     for (int i = 1; i <= 5; i++) {
       await db.execute(
-          "INSERT INTO Ruta (id, horaServicio, horaEspera, cupos, estado, ruta, vehiculoId, conductorId) VALUES ('$i', '08:00', '10:00', 4, 'activo', 'ruta1', '$i', '$i')");
+          "INSERT INTO Ruta (id, horaServicio, horaEspera, cupos, estado, ruta, vehiculoId, conductorId) VALUES ('$i', '2024-04-01 08:00:00', '2024-04-01 10:00:00', 4, 'activo', 'ruta1', '$i', '$i')");
     }
   }
 }
