@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:prueba_wagon/features/auth/presentation/widgets/auth_field.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class LoginPage extends StatefulWidget {
+  static route() {
+    return MaterialPageRoute(builder: (context) => const LoginPage());
+  }
 
+  const LoginPage({super.key});
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -57,8 +60,10 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               // MainButton(text: 'Iniciar sesion'),
               ElevatedButton(
-                onPressed: () {},
-                child: const Text('Iniciar sesion'),
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {}
+                },
+                child: const Text('Ingresar'),
               ),
             ],
           ),
