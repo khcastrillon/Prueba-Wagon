@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prueba_wagon/features/service/presentation/pages/add_service.dart';
 
 class ServicesList extends StatelessWidget {
   const ServicesList({super.key});
@@ -10,8 +11,14 @@ class ServicesList extends StatelessWidget {
         title: const Text('Servicios'),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.push(context, AddService.route());
+            },
+            icon: const Icon(Icons.add_circle_outline),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+              iconSize: MaterialStateProperty.all(40),
+            ),
           ),
         ],
       ),
