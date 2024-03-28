@@ -4,6 +4,7 @@ import 'package:prueba_wagon/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:prueba_wagon/core/theme/theme.dart';
 import 'package:prueba_wagon/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:prueba_wagon/features/auth/presentation/pages/login_page.dart';
+import 'package:prueba_wagon/features/service/presentation/pages/service_list.dart';
 import 'package:prueba_wagon/init_dependencies.dart';
 
 void main() async {
@@ -48,11 +49,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isLogedIn) {
           if (isLogedIn) {
-            return const Scaffold(
-              body: Center(
-                child: Text('Sesion iniciada'),
-              ),
-            );
+            return const ServicesList();
           }
           return const LoginPage();
         },
