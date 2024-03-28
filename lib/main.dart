@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prueba_wagon/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:prueba_wagon/core/theme/theme.dart';
 import 'package:prueba_wagon/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:prueba_wagon/features/auth/presentation/pages/login_page.dart';
@@ -10,6 +11,9 @@ void main() async {
   await initDependencies();
   runApp(MultiBlocProvider(
     providers: [
+      BlocProvider(
+        create: (_) => serviceLocator<AppUserCubit>(),
+      ),
       BlocProvider(
         create: (_) => serviceLocator<AuthBloc>(),
       )
@@ -38,7 +42,21 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Prueba tecnica Wagon',
       theme: AppTheme.darkThemeMode,
-      home: const LoginPage(),
+      home: BlocSelector<AppUserCubit, AppUserState, bool>(
+        selector: (state) {
+          return state is AppUserLoggedIn;
+        },
+        builder: (context, isLogedIn) {
+          if (isLogedIn) {
+            return const Scaffold(
+              body: Center(
+                child: Text('Sesion iniciada'),
+              ),
+            );
+          }
+          return const LoginPage();
+        },
+      ),
     );
   }
 }

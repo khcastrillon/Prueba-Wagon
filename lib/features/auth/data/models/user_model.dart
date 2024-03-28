@@ -1,4 +1,4 @@
-import 'package:prueba_wagon/features/auth/domain/entities/user.dart';
+import 'package:prueba_wagon/core/common/entities/user.dart';
 
 class UserModel extends User {
   UserModel({

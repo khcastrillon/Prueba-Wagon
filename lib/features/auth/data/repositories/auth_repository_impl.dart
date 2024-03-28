@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:prueba_wagon/core/error/exceptions.dart';
 import 'package:prueba_wagon/core/error/failures.dart';
 import 'package:prueba_wagon/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:prueba_wagon/features/auth/domain/entities/user.dart';
+import 'package:prueba_wagon/core/common/entities/user.dart';
 import 'package:prueba_wagon/features/auth/domain/repositories/auth_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
