@@ -7,12 +7,18 @@ import 'package:prueba_wagon/features/auth/domain/repositories/auth_repository.d
 import 'package:prueba_wagon/features/auth/domain/usecases/current_user.dart';
 import 'package:prueba_wagon/features/auth/domain/usecases/user_login.dart';
 import 'package:prueba_wagon/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:prueba_wagon/features/service/data/datasources/service_data_source.dart';
+import 'package:prueba_wagon/features/service/data/repositories/service_repository_impl.dart';
+import 'package:prueba_wagon/features/service/domain/repositories/service_repository.dart';
+import 'package:prueba_wagon/features/service/domain/usecases/create_service.dart';
+import 'package:prueba_wagon/features/service/presentation/bloc/service_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
+  _initService();
   final supabase = await Supabase.initialize(
     url: AppSecrets.supabaseUrl,
     anonKey: AppSecrets.supabaseAnnonKey,
@@ -54,6 +60,34 @@ void _initAuth() {
         userLogin: serviceLocator(),
         currentUser: serviceLocator(),
         appUserCubit: serviceLocator(),
+      ),
+    );
+}
+
+void _initService() {
+  // Datasourse
+  serviceLocator
+    ..registerFactory<ServiceRemoteDataSource>(
+      () => ServiceRemoteDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
+    // Repository
+    ..registerFactory<ServiceRepository>(
+      () => ServiceRepositoryImpl(
+        serviceLocator(),
+      ),
+    )
+    // Usecases
+    ..registerFactory(
+      () => CreateService(
+        serviceLocator(),
+      ),
+    )
+    //Bloc
+    ..registerLazySingleton(
+      () => ServiceBloc(
+        serviceLocator(),
       ),
     );
 }

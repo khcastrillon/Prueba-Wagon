@@ -1,9 +1,5 @@
-part of 'service_bloc.dart';
-
-@immutable
-sealed class ServiceEvent {}
-
-final class ServiceCreate extends ServiceEvent {
+class Service {
+  final String id;
   final DateTime horaServicio;
   final DateTime horaEspera;
   final int cupos;
@@ -12,7 +8,8 @@ final class ServiceCreate extends ServiceEvent {
   final String conductorId;
   final String vehiculoId;
 
-  ServiceCreate({
+  Service({
+    required this.id,
     required this.horaServicio,
     required this.horaEspera,
     required this.cupos,
@@ -22,5 +19,3 @@ final class ServiceCreate extends ServiceEvent {
     required this.vehiculoId,
   });
 }
-
-final class ServiceUpdate extends ServiceEvent {}

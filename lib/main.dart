@@ -4,6 +4,7 @@ import 'package:prueba_wagon/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:prueba_wagon/core/theme/theme.dart';
 import 'package:prueba_wagon/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:prueba_wagon/features/auth/presentation/pages/login_page.dart';
+import 'package:prueba_wagon/features/service/presentation/bloc/service_bloc.dart';
 import 'package:prueba_wagon/features/service/presentation/pages/service_list.dart';
 import 'package:prueba_wagon/init_dependencies.dart';
 
@@ -17,7 +18,10 @@ void main() async {
       ),
       BlocProvider(
         create: (_) => serviceLocator<AuthBloc>(),
-      )
+      ),
+      BlocProvider(
+        create: (_) => serviceLocator<ServiceBloc>(),
+      ),
     ],
     child: const MyApp(),
   ));
